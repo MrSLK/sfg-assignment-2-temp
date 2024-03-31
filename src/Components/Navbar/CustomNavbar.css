@@ -1,0 +1,14 @@
+/* CustomNavbar.css */
+.navbar {
+  background-color: #808080; /* Grey background color */
+}
+
+.navbar-brand,
+.nav-link {
+  color: #343a40; /* Dark grey text color */
+}
+
+.navbar-brand:hover,
+.nav-link:hover {
+  color: #ffffff; /* White text color on hover */
+}
