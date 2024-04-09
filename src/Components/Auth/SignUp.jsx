@@ -44,6 +44,8 @@ const SignUp = () => {
                 firstName: values.firstName,
               }
               console.log("values ->", { vals })
+              localStorage.setItem("user", JSON.stringify(vals))
+              window.location.href = "/driver";
             }}
           >
             {({ errors, touched }) => (
@@ -60,15 +62,14 @@ const SignUp = () => {
                   <div className="col-md-6">
                     <label for="inputEmail4" class="form-label mt-3">First Name</label>
                     <Field name="firstName" type="text" className="form-control" />
-
+                    {errors.firstName && touched.firstName ? (<small className="text-danger">{errors.firstName}</small>) : null}
                   </div>
                   <div className="col-md-6">
                     <label for="inputEmail4" class="form-label mt-3">Last Name</label>
-
                     <Field name="lastName" type="text" className="form-control" />
+                    {errors.lastName && touched.lastName ? (<small className="text-danger">{errors.lastName}</small>) : null}
                   </div>
                 </div>
-                {errors.lastName && touched.lastName ? (<small className="text-danger">{errors.lastName}</small>) : null}
 
 
                 <div class="col-12">

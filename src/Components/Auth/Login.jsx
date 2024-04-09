@@ -1,7 +1,6 @@
 import { Formik, Form, Field } from 'formik';
 import { Link } from "react-router-dom"
 import * as Yup from 'yup';
-import PasswordShowHide from "../PasswordShowHide"
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Field required'),
@@ -11,9 +10,9 @@ const SignupSchema = Yup.object().shape({
     .required('Field required')
 });
 
-const Login = () => {
+const Login = (props) => {
 
-
+  
   return (
     <div className="grid-cols">
       <div className="bg-base-300">
@@ -24,9 +23,12 @@ const Login = () => {
           }}
           validationSchema={SignupSchema}
           onSubmit={values => {
+            console.log("props ->", props)
             const username = values.email
             const password = values.password
             console.log("values", { username, password })
+            localStorage.setItem("user", JSON.stringify({ username, password }))
+            window.location.href = "/driver";
           }}
         >
           {({ errors, touched }) => (
@@ -35,8 +37,6 @@ const Login = () => {
               <div className="text-styl">
                 <h2 className="heading-h2">Login to your account</h2>
               </div>
-              {/* {error && <div className='error'>{error}</div>} */}
-
               <div class="col-12">
                 <label for="inputAddress" class="form-label mt-3">Email</label>
                 <Field name="email" type="email" className="form-control" />
@@ -45,7 +45,7 @@ const Login = () => {
 
               <div class="col-12">
                 <label for="inputAddress" class="form-label mt-3">Password</label>
-                <Field name="email" type="password" className="form-control" />
+                <Field name="password" type="password" className="form-control" />
               </div>
               {errors.password && touched.password ? (<small className="text-danger">{errors.password}</small>) : null}
 
