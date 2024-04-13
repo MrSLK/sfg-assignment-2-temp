@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -10,6 +10,15 @@ import {
 import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    if (localStorage.getItem("user") !== null) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      setUser({ ...user, firstName: "Temp", lastName: "User" });
+    }
+
+  }, [localStorage.getItem("user")])
   return (
     <div
       style={{ display: 'flex', height: `calc(100vh - 56px)`, overflow: 'scroll initial' }}
@@ -21,7 +30,7 @@ const Sidebar = () => {
             className="text-decoration-none"
             style={{ color: 'inherit' }}
           >
-            Sidebar
+            {user ? `Hi ${user?.firstName} ${user?.lastName}` : "Not logged in"}
           </a>
         </CDBSidebarHeader>
 

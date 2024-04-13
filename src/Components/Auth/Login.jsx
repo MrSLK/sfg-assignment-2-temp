@@ -13,7 +13,7 @@ const SignupSchema = Yup.object().shape({
 const Login = (props) => {
 
   const navigate = useNavigate();
-  
+
   return (
     <div className="grid-cols">
       <div className="bg-base-300">
@@ -38,14 +38,14 @@ const Login = (props) => {
               <div className="text-styl">
                 <h2 className="heading-h2">Login to your account</h2>
               </div>
-              <div class="col-12">
-                <label for="inputAddress" class="form-label mt-3">Email</label>
+              <div className="col-12">
+                <label for="inputAddress" className="form-label mt-3">Email</label>
                 <Field name="email" type="email" className="form-control" />
               </div>
               {errors.email && touched.email ? (<small className="text-danger">{errors.email}</small>) : null}
 
-              <div class="col-12">
-                <label for="inputAddress" class="form-label mt-3">Password</label>
+              <div className="col-12">
+                <label for="inputAddress" className="form-label mt-3">Password</label>
                 <Field name="password" type="password" className="form-control" />
               </div>
               {errors.password && touched.password ? (<small className="text-danger">{errors.password}</small>) : null}

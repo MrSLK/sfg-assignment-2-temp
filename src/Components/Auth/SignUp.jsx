@@ -62,35 +62,35 @@ const SignUp = () => {
                 {/* {error && <div className='error'>{error}</div>} */}
                 <div className="row">
                   <div className="col-md-6">
-                    <label for="inputEmail4" class="form-label mt-3">First Name</label>
+                    <label for="inputEmail4" className="form-label mt-3">First Name</label>
                     <Field name="firstName" type="text" className="form-control" />
                     {errors.firstName && touched.firstName ? (<small className="text-danger">{errors.firstName}</small>) : null}
                   </div>
                   <div className="col-md-6">
-                    <label for="inputEmail4" class="form-label mt-3">Last Name</label>
+                    <label for="inputEmail4" className="form-label mt-3">Last Name</label>
                     <Field name="lastName" type="text" className="form-control" />
                     {errors.lastName && touched.lastName ? (<small className="text-danger">{errors.lastName}</small>) : null}
                   </div>
                 </div>
 
 
-                <div class="col-12">
-                  <label for="inputAddress" class="form-label mt-3">Email</label>
+                <div className="col-12">
+                  <label for="inputAddress" className="form-label mt-3">Email</label>
                   <Field name="email" type="email" className="form-control" />
                 </div>
                 {errors.email && touched.email ? (<small className="text-danger">{errors.email}</small>) : null}
 
 
-                <div class="col-12">
-                  <label for="inputAddress2" class="form-label mt-3">Cell Number</label>
+                <div className="col-12">
+                  <label for="inputAddress2" className="form-label mt-3">Cell Number</label>
                   <Field name="cellNumber" type="number" className="form-control" />
                 </div>
 
                 {errors.cellNumber && touched.cellNumber ? (<small className="text-danger">{errors.cellNumber}</small>) : null}
 
-                <div class="col-12">
-                  <label for="inputAddress2" class="form-label mt-3">Password</label>
-                  <Field name="password" type="password" class="form-control" />
+                <div className="col-12">
+                  <label for="inputAddress2" className="form-label mt-3">Password</label>
+                  <Field name="password" type="password" className="form-control" />
                 </div>
 
                 {errors.password && touched.password ? (<small className="text-danger">{errors.password}</small>) : null}

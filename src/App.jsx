@@ -5,11 +5,13 @@ import Home from './Components/Home';
 import Login from './Components/Auth/Login';
 import NotFound from './Components/NotFound';
 import SignUp from './Components/Auth/SignUp';
+// Driver components
 import Driver from './Components/Driver/Index';
 import DriverProfile from './Components/Driver/DriverProfile';
 import Analytics from './Components/Driver/Analytics';
 import Dashboard from './Components/Driver/Dashoard';
 import Tables from './Components/Driver/Tables';
+import DriverJob from './Components/Driver/DriverJob';
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
               <Route exact path="/driver/profile" Component={DriverProfile} />
               <Route exact path="/driver/analytics" Component={Analytics} />
               <Route exact path="/driver/table" Component={Tables} />
+              <Route exact path="/driver/jobs/:jobId" Component={DriverJob} />
             </Route>
             {/* <Route path="/blogs/:id" Component={BlogDetails} />  */}
             <Route path="*" Component={NotFound} />
