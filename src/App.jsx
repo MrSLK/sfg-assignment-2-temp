@@ -8,9 +8,8 @@ import SignUp from './Components/Auth/SignUp';
 // Driver components
 import Driver from './Components/Driver/Index';
 import DriverProfile from './Components/Driver/DriverProfile';
-import Analytics from './Components/Driver/Analytics';
 import Dashboard from './Components/Driver/Dashoard';
-import Tables from './Components/Driver/Tables';
+import PreviousJobs from './Components/Driver/PreviousJobs';
 import DriverJob from './Components/Driver/DriverJob';
 
 function App() {
@@ -28,8 +27,7 @@ function App() {
             <Route exact path="/driver" Component={Driver} >
               <Route exact path="/driver" Component={Dashboard} />
               <Route exact path="/driver/profile" Component={DriverProfile} />
-              <Route exact path="/driver/analytics" Component={Analytics} />
-              <Route exact path="/driver/table" Component={Tables} />
+              <Route exact path="/driver/previous-jobs" Component={PreviousJobs} />
               <Route exact path="/driver/jobs/:jobId" Component={DriverJob} />
             </Route>
             {/* <Route path="/blogs/:id" Component={BlogDetails} />  */}

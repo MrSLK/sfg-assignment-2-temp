@@ -64,6 +64,20 @@ const DriverJob = () => {
           <p>{jobDescription}</p>
           <div className="mt-40" />
         </div>
+        <div className="row">
+          <div className="col-md-6" />
+          <div className="col-md-6 d-flex justify-content-end">
+            <div className="col-md-4">
+              <button className="btn btn-danger">Decline</button>
+            </div>
+            <div className="col-md-4">
+              <button className="btn btn-secondary">Request further info</button>
+            </div>
+            <div className="col-md-4">
+              <button className="btn btn-success">Accept</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

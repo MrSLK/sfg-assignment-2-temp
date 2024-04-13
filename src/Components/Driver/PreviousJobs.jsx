@@ -1,7 +1,6 @@
-import { Table } from "antd";
 import moment from "moment";
 
-const Tables = () => {
+const PreviousJobs = () => {
   const dataSource = [
     {
       hirer: "Isaac Malebana",
@@ -43,5 +42,5 @@ const Tables = () => {
   )
 }
 
-export default Tables;
+export default PreviousJobs;
 

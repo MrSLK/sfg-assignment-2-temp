@@ -18,7 +18,6 @@ const Dashboard = () => {
         jobDescription: "Easy Lifestyle is looking for a driver for the next 6 months to private billionaires, at their descretion",
         jobStartDate: new Date(),
         jobEndDate: new Date("2025-07-13"),
-
       },
       {
         jobName: "Group Chauffer",
@@ -26,7 +25,6 @@ const Dashboard = () => {
         jobDescription: "Indeed is looking for a driver for the next 12 months to drive their staff from the bus terminals to the office on a daily basis",
         jobStartDate: new Date(),
         jobEndDate: new Date("2025-07-13"),
-
       },
       {
         jobName: "Personal Chauffer",
@@ -34,7 +32,6 @@ const Dashboard = () => {
         jobDescription: "Mayor of Johannesburg is looking for a personal chauffer to drive everywhere he goes",
         jobStartDate: new Date(),
         jobEndDate: new Date("2025-07-13"),
-
       },
       {
         jobName: "Bus Driver",
@@ -42,7 +39,48 @@ const Dashboard = () => {
         jobDescription: "TUT Inc is looking for a driver for the next 6 months to drive students from the Arcadia campus to the Soshanguve South & North campuses, between 6:30am and 7pm",
         jobStartDate: new Date(),
         jobEndDate: new Date("2025-07-13"),
-
+      },
+      {
+        jobName: "Bus Driver",
+        jobHirer: "TUT",
+        jobDescription: "TUT Inc is looking for a driver for the next 6 months to drive students from the Arcadia campus to the Soshanguve South & North campuses, between 6:30am and 7pm",
+        jobStartDate: new Date(),
+        jobEndDate: new Date("2025-07-13"),
+      },
+      {
+        jobName: "Bus Driver",
+        jobHirer: "TUT",
+        jobDescription: "TUT Inc is looking for a driver for the next 6 months to drive students from the Arcadia campus to the Soshanguve South & North campuses, between 6:30am and 7pm",
+        jobStartDate: new Date(),
+        jobEndDate: new Date("2025-07-13"),
+      },
+      {
+        jobName: "Bus Driver",
+        jobHirer: "TUT",
+        jobDescription: "TUT Inc is looking for a driver for the next 6 months to drive students from the Arcadia campus to the Soshanguve South & North campuses, between 6:30am and 7pm",
+        jobStartDate: new Date(),
+        jobEndDate: new Date("2025-07-13"),
+      },
+      {
+        jobName: "Bus Driver",
+        jobHirer: "TUT",
+        jobDescription: "TUT Inc is looking for a driver for the next 6 months to drive students from the Arcadia campus to the Soshanguve South & North campuses, between 6:30am and 7pm",
+        jobStartDate: new Date(),
+        jobEndDate: new Date("2025-07-13"),
+      },
+      {
+        jobName: "Bus Driver",
+        jobHirer: "TUT",
+        jobDescription: "TUT Inc is looking for a driver for the next 6 months to drive students from the Arcadia campus to the Soshanguve South & North campuses, between 6:30am and 7pm",
+        jobStartDate: new Date(),
+        jobEndDate: new Date("2025-07-13"),
+      },
+      {
+        jobName: "Bus Driver",
+        jobHirer: "TUT",
+        jobDescription: "TUT Inc is looking for a driver for the next 6 months to drive students from the Arcadia campus to the Soshanguve South & North campuses, between 6:30am and 7pm",
+        jobStartDate: new Date(),
+        jobEndDate: new Date("2025-07-13"),
       },
     ];
     setJobs(pJobs);
@@ -51,7 +89,7 @@ const Dashboard = () => {
     <div className="container-fluid">
       <h2>Pontential Jobs</h2>
       <div className="row">
-        {jobs.map((job, index) => (
+        {jobs.length > 0 ? jobs.map((job, index) => (
 
           <div className="card" key={index} style={{ width: "18rem", margin: "10px" }}>
             <div className="card-body">
@@ -62,31 +100,9 @@ const Dashboard = () => {
               <div className="col-md-4">
                 <button className="btn btn-primary" onClick={onClick}>View Job</button>
               </div>
-              {/* <div className="row">
-              <div className="col-md-4">
-                <button className="btn btn-danger w-100">Decline</button>
-              </div>
-              <div className="col-md-4">
-                <button className="btn btn-secondary w-100">Request further info</button>
-              </div>
-              <div className="col-md-4">
-                <button className="btn btn-success w-100">Accept</button>
-              </div>
-            </div> */}
-              {/* <div className="row">
-              <div className="col-md-4">
-                <button className="btn btn-danger w-100">Danger</button>
-              </div>
-              <div className="col-md-4">
-                <button className="btn btn-secondary w-100">Request further info</button>
-              </div>
-              <div className="col-md-4">
-                <button className="btn btn-success w-100">Accept</button>
-              </div>
-            </div> */}
             </div>
           </div>
-        ))}
+        )) : <h4>No jobs found!</h4>}
       </div>
     </div>
   )

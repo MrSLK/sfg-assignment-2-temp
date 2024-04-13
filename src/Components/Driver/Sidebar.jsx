@@ -39,16 +39,11 @@ const Sidebar = () => {
             <NavLink to="/driver" >
               <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink to="/driver/table" >
-              <CDBSidebarMenuItem icon="table">Tables</CDBSidebarMenuItem>
+            <NavLink to="/driver/previous-jobs" >
+              <CDBSidebarMenuItem icon="table">Previous Jobs</CDBSidebarMenuItem>
             </NavLink>
             <NavLink to="/driver/profile" >
               <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink to="/driver/analytics">
-              <CDBSidebarMenuItem icon="chart-line">
-                Analytics
-              </CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
