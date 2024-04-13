@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 const CustomNavbar = () => {
 
-  let user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" data-bs-theme="light">
       <Container>
@@ -14,8 +14,7 @@ const CustomNavbar = () => {
           <Nav className="ml-auto">
             {user ? (
               <Nav.Link as={NavLink} to="/" onClick={() => {
-                localStorage.clear();
-                user = "";
+                setUser(null);
               }} className="nav-link">Log Out</Nav.Link>
             ) : (
                 <Nav className="ml-auto">

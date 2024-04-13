@@ -1,5 +1,5 @@
 import { Formik, Form, Field } from 'formik';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import * as Yup from 'yup';
 
 const SignupSchema = Yup.object().shape({
@@ -12,6 +12,7 @@ const SignupSchema = Yup.object().shape({
 
 const Login = (props) => {
 
+  const navigate = useNavigate();
   
   return (
     <div className="grid-cols">
@@ -28,7 +29,7 @@ const Login = (props) => {
             const password = values.password
             console.log("values", { username, password })
             localStorage.setItem("user", JSON.stringify({ username, password }))
-            window.location.href = "/driver";
+            navigate("/driver");
           }}
         >
           {({ errors, touched }) => (

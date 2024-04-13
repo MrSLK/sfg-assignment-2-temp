@@ -1,5 +1,5 @@
 import { Formik, Form, Field } from 'formik';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import * as Yup from 'yup';
 
 const SignupSchema = Yup.object().shape({
@@ -20,6 +20,8 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignUp = () => {
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -45,7 +47,7 @@ const SignUp = () => {
               }
               console.log("values ->", { vals })
               localStorage.setItem("user", JSON.stringify(vals))
-              window.location.href = "/driver";
+              navigate("/driver");
             }}
           >
             {({ errors, touched }) => (
