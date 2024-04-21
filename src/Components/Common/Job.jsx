@@ -2,19 +2,29 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import ModalDialog from "./ModalDialog";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchOneJob } from "../../store/jobs/actions/jobs.actions"
 
 const Job = () => {
 
+  const dispatch = useDispatch();
+  const {
+    jobTitle,
+    jobHirer,
+    description,
+    startDate,
+    endDate,
+    pay 
+  } = useSelector(state => state.jobs)
+
   const { jobId } = useParams();
-  const [jobTitle, setJobName] = useState("");
-  const [jobHirer, setJobHirer] = useState("");
-  const [jobDescription, setJobDescription] = useState("");
-  const [jobStartDate, setJobStartDate] = useState("");
-  const [jobEndDate, setEndDate] = useState("");
-  const [isFixedTerm, setIsFixedTerm] = useState(null);
-  const [pay, setPay] = useState(0);
+  const [isFixedTerm, setIsFixedTerm] = useState(startDate && endDate ? true : false);
   const [isHirer, setIsHirer] = useState(window.location.pathname.includes("hirer") ? true : false);
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchOneJob({ jobId }))
+  }, [jobId])
 
   const confirmDeleteJob = () => {
 
@@ -45,27 +55,6 @@ const Job = () => {
     )
   }
 
-  useEffect(() => {
-    const job = {
-      isFixedTerm: true,
-      jobTitle: "Bus Driver",
-      jobHirer: "TUT",
-      jobDescription: "TUT Inc is looking for a driver for the next 6 months to drive students from the Arcadia campus to the Soshanguve South & North campuses, between 6:30am and 7pm",
-      jobStartDate: new Date(),
-      jobEndDate: new Date("2025-07-13"),
-      pay: 14500
-    }
-
-    setIsFixedTerm(job.isFixedTerm);
-    setJobName(job.jobTitle);
-    setJobHirer(job.jobHirer);
-    setJobDescription(job.jobDescription);
-    setJobStartDate(job.jobStartDate);
-    setEndDate(job.jobEndDate);
-    setPay(job.pay);
-
-  }, [])
-
   return (
     <div>
       {modalOpen && confirmDeleteJob()}
@@ -86,40 +75,40 @@ const Job = () => {
           <div className="mt-40" />
 
           <strong>Start Date:</strong>
-          <p>{moment(jobStartDate).format("YYYY-MMM-DD")}</p>
+          <p>{moment(startDate).format("YYYY-MMM-DD")}</p>
           <div className="mt-40" />
 
           <strong>End Date:</strong>
-          <p>{moment(jobEndDate).format("YYYY-MMM-DD")}</p>
+          <p>{moment(endDate).format("YYYY-MMM-DD")}</p>
           <div className="mt-40" />
 
           <strong>Description:</strong>
-          <p>{jobDescription}</p>
+          <p>{description}</p>
           <div className="mt-40" />
         </div>
         {!isHirer ? (
-        <div className="row">
-          <div className="col-md-6" />
-          <div className="col-md-6 d-flex justify-content-end">
-            <div className="col-md-4">
-              <button className="btn btn-danger">Decline</button>
-            </div>
-            <div className="col-md-4">
-              <button className="btn btn-secondary">Request further info</button>
-            </div>
-            <div className="col-md-4">
-              <button className="btn btn-success">Accept</button>
-            </div>
-          </div>
-        </div>) : (
-            <div className="row">
-              <div className="col-md-6" />
-              <div className="col-md-6 d-flex justify-content-end">
-                <div className="col-md-4">
-                  <button onClick={() => setModalOpen(true)} className="btn btn-danger">Terminate Job</button>
-                </div>
+          <div className="row">
+            <div className="col-md-6" />
+            <div className="col-md-6 d-flex justify-content-end">
+              <div className="col-md-4">
+                <button className="btn btn-danger">Decline</button>
+              </div>
+              <div className="col-md-4">
+                <button className="btn btn-secondary">Request further info</button>
+              </div>
+              <div className="col-md-4">
+                <button className="btn btn-success">Accept</button>
               </div>
             </div>
+          </div>) : (
+          <div className="row">
+            <div className="col-md-6" />
+            <div className="col-md-6 d-flex justify-content-end">
+              <div className="col-md-4">
+                <button onClick={() => setModalOpen(true)} className="btn btn-danger">Terminate Job</button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>

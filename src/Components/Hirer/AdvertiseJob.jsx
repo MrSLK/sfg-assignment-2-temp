@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useSelector, useDispatch } from 'react-redux';
 import { createJob } from "../../store/jobs/actions/jobs.actions";
-import Swal from 'sweetalert2'
 import { SuccessAlert } from "../Common/SuccessAlert";
 
 const AddJobSchema = Yup.object().shape({

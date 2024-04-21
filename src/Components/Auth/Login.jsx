@@ -39,13 +39,13 @@ const Login = (props) => {
                 <h2 className="heading-h2">Login to your account</h2>
               </div>
               <div className="col-12">
-                <label for="inputAddress" className="form-label mt-3">Email</label>
+                <label htmlFor="email" className="form-label mt-3">Email</label>
                 <Field name="email" type="email" className="form-control" />
               </div>
               {errors.email && touched.email ? (<small className="text-danger">{errors.email}</small>) : null}
 
               <div className="col-12">
-                <label for="inputAddress" className="form-label mt-3">Password</label>
+                <label htmlFor="password" className="form-label mt-3">Password</label>
                 <Field name="password" type="password" className="form-control" />
               </div>
               {errors.password && touched.password ? (<small className="text-danger">{errors.password}</small>) : null}
@@ -56,10 +56,11 @@ const Login = (props) => {
               </button>
               <span className="span-text">Don't have an account? <Link className="link link-primary" to='/signup'>Sign up</Link></span>
             </Form>
-          )}
-        </Formik>
-      </div>
-    </div>
+          )
+          }
+        </Formik >
+      </div >
+    </div >
   )
 }
 

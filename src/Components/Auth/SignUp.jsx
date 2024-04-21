@@ -72,12 +72,12 @@ const SignUp = () => {
                 {/* {error && <div className='error'>{error}</div>} */}
                 <div className="row">
                   <div className="col-md-6">
-                    <label for="inputEmail4" className="form-label mt-3">First Name</label>
+                    <label htmlFor="firstName" className="form-label mt-3">First Name</label>
                     <Field name="firstName" type="text" className="form-control" />
                     {errors.firstName && touched.firstName ? (<small className="text-danger">{errors.firstName}</small>) : null}
                   </div>
                   <div className="col-md-6">
-                    <label for="inputEmail4" className="form-label mt-3">Last Name</label>
+                    <label htmlFor="inputEmail4" className="form-label mt-3">Last Name</label>
                     <Field name="lastName" type="text" className="form-control" />
                     {errors.lastName && touched.lastName ? (<small className="text-danger">{errors.lastName}</small>) : null}
                   </div>
@@ -85,19 +85,19 @@ const SignUp = () => {
 
 
                 <div className="col-12">
-                  <label for="inputAddress" className="form-label mt-3">Email</label>
+                  <label htmlFor="inputAddress" className="form-label mt-3">Email</label>
                   <Field name="email" type="email" className="form-control" />
                 </div>
                 {errors.email && touched.email ? (<small className="text-danger">{errors.email}</small>) : null}
 
 
                 <div className="col-12">
-                  <label for="inputAddress2" className="form-label mt-3">Cell Number</label>
+                  <label htmlFor="inputAddress2" className="form-label mt-3">Cell Number</label>
                   <Field name="cellNumber" type="string" className="form-control" />
-                </div>
+                </div >
                 {errors.cellNumber && touched.cellNumber ? (<small className="text-danger">{errors.cellNumber}</small>) : null}
 
-                <div className="form-group">
+                < div className="form-group" >
                   <label htmlFor="inputAddress" className="form-label mt-3">Role</label>
                   <div className="row">
                     <div className="col-6">
@@ -126,36 +126,38 @@ const SignUp = () => {
                     </div>
                   </div>
 
-                  {errors.role && touched.role ? (
-                    <small className="text-danger">{errors.role}</small>
-                  ) : null}
-                </div>
+                  {
+                    errors.role && touched.role ? (
+                      <small className="text-danger">{errors.role}</small>
+                    ) : null
+                  }
+                </div >
 
 
 
                 <div className="row">
                   <div className="col-md-6">
-                    <label for="inputEmail4" className="form-label mt-3">Password</label>
+                    <label htmlFor="inputEmail4" className="form-label mt-3">Password</label>
                     <Field name="password" type="password" className="form-control" />
                     {errors.password && touched.password ? (<small className="text-danger">{errors.password}</small>) : null}
                   </div>
                   <div className="col-md-6">
-                    <label for="inputEmail4" className="form-label mt-3">Confirm Password</label>
+                    <label htmlFor="inputEmail4" className="form-label mt-3">Confirm Password</label>
                     <Field name="confirmPassword" type="password" className="form-control" />
                     {errors.confirmPassword && touched.confirmPassword ? (<small className="text-danger">{errors.confirmPassword}</small>) : null}
-                  </div>
-                </div>
+                  </div >
+                </div >
 
-                {error ? (<small className="text-danger">{error}</small>) : null}
+                {error ? (<small className="text-danger" > {error}</small>) : null}
                 <button className="btn btn-primary my-4" type="submit">
-                  {isLoading ? "Submitting....": "Create Account"}
+                  {isLoading ? "Submitting...." : "Create Account"}
                 </button>
                 <span className="span-text">Already have an account? <Link className="link link-primary" to='/login'>Sign in</Link></span>
-              </Form>
+              </Form >
             )}
-          </Formik>
-        </div>
-      </div>
+          </Formik >
+        </div >
+      </div >
     </>
   )
 }

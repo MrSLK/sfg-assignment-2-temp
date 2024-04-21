@@ -8,7 +8,7 @@ import { trimText } from "../../Helpers/index"
 const AdvertisedJob = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, error, successMessage, allJobs } = useSelector((state) => state.jobs);
+  const { isLoading, allJobs } = useSelector((state) => state.jobs);
 
   useEffect(() => {
     dispatch(fetchAllJob())

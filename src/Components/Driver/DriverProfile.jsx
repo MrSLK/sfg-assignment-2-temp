@@ -57,12 +57,12 @@ const DriverProfile = () => {
               {/* {error && <div className='error'>{error}</div>} */}
               <div className="row">
                 <div className="col-md-6">
-                  <label for="inputEmail4" className="form-label mt-3">First Name</label>
+                  <label htmlFor="inputEmail4" className="form-label mt-3">First Name</label>
                   <Field name="firstName" type="text" className="form-control" />
                   {errors.firstName && touched.firstName ? (<small className="text-danger">{errors.firstName}</small>) : null}
                 </div>
                 <div className="col-md-6">
-                  <label for="inputEmail4" className="form-label mt-3">Last Name</label>
+                  <label htmlFor="inputEmail4" className="form-label mt-3">Last Name</label>
                   <Field name="lastName" type="text" className="form-control" />
                   {errors.lastName && touched.lastName ? (<small className="text-danger">{errors.lastName}</small>) : null}
                 </div>
@@ -70,43 +70,43 @@ const DriverProfile = () => {
 
 
               <div className="col-12">
-                <label for="inputAddress" className="form-label mt-3">Email</label>
+                <label htmlFor="inputAddress" className="form-label mt-3">Email</label>
                 <Field name="email" type="email" className="form-control" />
               </div>
               {errors.email && touched.email ? (<small className="text-danger">{errors.email}</small>) : null}
 
 
               <div className="col-12">
-                <label for="inputAddress2" className="form-label mt-3">Cell Number</label>
+                <label htmlFor="inputAddress2" className="form-label mt-3">Cell Number</label>
                 <Field name="cellNumber" type="number" className="form-control" />
-              </div>
+              </div >
 
               {errors.cellNumber && touched.cellNumber ? (<small className="text-danger">{errors.cellNumber}</small>) : null}
 
 
-              <div className="col-12">
-                <label for="idNumber" className="form-label mt-3">ID Number</label>
+              < div className="col-12" >
+                <label htmlFor="idNumber" className="form-label mt-3" > ID Number</label >
                 <Field name="idNumber" type="text" className="form-control" />
-              </div>
+              </div >
 
               {errors.idNumber && touched.idNumber ? (<small className="text-danger">{errors.idNumber}</small>) : null}
 
-              <div className="row">
+              < div className="row" >
                 <div className="col-md-6">
-                  <label for="licenseType" className="form-label mt-3">License Type</label>
+                  <label htmlFor="licenseType" className="form-label mt-3">License Type</label>
                   <Field name="licenseType" type="text" className="form-control" />
                   {errors.licenseType && touched.licenseType ? (<small className="text-danger">{errors.licenseType}</small>) : null}
-                </div>
+                </div >
                 <div className="col-md-6">
-                  <label for="licenseCode" className="form-label mt-3">License Code</label>
+                  <label htmlFor="licenseCode" className="form-label mt-3">License Code</label>
                   <Field name="licenseCode" type="text" className="form-control" />
                   {errors.licenseCode && touched.licenseCode ? (<small className="text-danger">{errors.licenseCode}</small>) : null}
-                </div>
-              </div>
+                </div >
+              </div >
 
               <div className="row">
                 <div className="col-md-6">
-                  <label for="firstIssued" className="form-label mt-3">First Issue</label>
+                  <label htmlFor="firstIssued" className="form-label mt-3">First Issue</label>
                   <DatePicker name='firstIssued' className='form-control' onChange={(date, dateString) => {
                     handleChange(dateString)
                     setFieldTouched('firstIssued', true)
@@ -115,24 +115,24 @@ const DriverProfile = () => {
                   {errors.firstIssued && touched.firstIssued ? (<small className="text-danger">{errors.firstIssued}</small>) : null}
                 </div>
                 <div className="col-md-6">
-                  <label for="expiryDate" className="form-label mt-3">Expiry Date</label>
+                  <label htmlFor="expiryDate" className="form-label mt-3">Expiry Date</label>
                   <DatePicker className='form-control' onChange={(date, dateString) => {
                     handleChange(dateString)
                     setFieldTouched('expiryDate', true)
                     setFieldValue('expiryDate', dateString)
                   }} needConfirm />
                   {errors.expiryDate && touched.expiryDate ? (<small className="text-danger">{errors.expiryDate}</small>) : null}
-                </div>
-              </div>
+                </div >
+              </div >
 
               <div className="col-12">
-                <label for="countryIssued" className="form-label mt-3">Country Issued</label>
+                <label htmlFor="countryIssued" className="form-label mt-3">Country Issued</label>
                 <Field name="countryIssued" type="text" className="form-control" />
-              </div>
+              </div >
 
               {errors.countryIssued && touched.countryIssued ? (<small className="text-danger">{errors.countryIssued}</small>) : null}
 
-              <div className="col-md-12">
+              < div className="col-md-12" >
                 <label className="form-label mt-3">Description</label>
                 <Field
                   name="description"
@@ -142,19 +142,21 @@ const DriverProfile = () => {
                   rows="2"
                 />
 
-                {errors.description && touched.description ? (
-                  <small className="text-danger">{errors.description}</small>
-                ) : null}
-              </div>
+                {
+                  errors.description && touched.description ? (
+                    <small className="text-danger">{errors.description}</small>
+                  ) : null
+                }
+              </div >
 
               <button className="btn btn-primary my-4" type="submit">
                 Submit
               </button>
-            </Form>
+            </Form >
           )}
-        </Formik>
-      </div>
-    </div>
+        </Formik >
+      </div >
+    </div >
   )
 }
 
