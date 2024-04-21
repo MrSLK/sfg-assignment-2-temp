@@ -1,9 +1,10 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { DatePicker } from 'antd';
+import { useNavigate } from "react-router-dom";
 import { validateIDNumber } from '../../Helpers';
 
-const SignupSchema = Yup.object().shape({
+const DriverProfileSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
@@ -14,49 +15,38 @@ const SignupSchema = Yup.object().shape({
     .required('Field required'),
   email: Yup.string().email('Invalid email').required('Field required'),
   cellNumber: Yup.number().required('Field required').positive().integer(),
-  password: Yup.string()
-    .min(8, 'Password too short! minimum 8 characters password contains a combination of uppercase and lowercase letter and number are required.')
-    .max(14, 'Password too long! minimum 14 characters password contains a combination of uppercase and lowercase')
-    .required('Field required'),
   licenseType: Yup.string().required('License type is required'),
   licenseCode: Yup.string().required('License code is required'),
   firstIssued: Yup.date().required("Field required"),
   expiryDate: Yup.date().required("Field required"),
   countryIssued: Yup.string().required('Country issued is required'),
+  description: Yup.string().required('Description is required'),
   idNumber: validateIDNumber()
 });
 const DriverProfile = () => {
+  const navigate = useNavigate();
 
   return (
     <div className="grid-cols">
       <div className="bg-base-300">
         <Formik
           initialValues={{
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            cellNumber: '',
+            firstName: "",
+            lastName: "",
+            email: "",
+            cellNumber: "",
             licenseType: "",
             licenseCode: "",
             firstIssued: "",
             expiryDate: "",
             idNumber: "",
             countryIssued: "",
+            description: ""
           }}
-          validationSchema={SignupSchema}
+          validationSchema={DriverProfileSchema}
           onSubmit={values => {
-            const vals = {
-              cellNumber: '0' + values.cellNumber,
-              firstName: values.firstName,
-              lastName: values.lastName,
-              email: values.email,
-              password: values.password,
-              firstName: values.firstName,
-            }
-            console.log("values ->", { vals })
-            localStorage.setItem("user", JSON.stringify(vals))
-            window.location.href = "/driver";
+            console.log("I'm clicked")
+            console.log("values ->", values)
           }}
         >
           {({ errors, touched, handleChange, setFieldTouched, setFieldValue }) => (
@@ -96,10 +86,10 @@ const DriverProfile = () => {
 
               <div className="col-12">
                 <label for="idNumber" className="form-label mt-3">ID Number</label>
-                <Field name="idNumber" type="number" className="form-control" />
+                <Field name="idNumber" type="text" className="form-control" />
               </div>
 
-              {errors.cellNumber && touched.cellNumber ? (<small className="text-danger">{errors.cellNumber}</small>) : null}
+              {errors.idNumber && touched.idNumber ? (<small className="text-danger">{errors.idNumber}</small>) : null}
 
               <div className="row">
                 <div className="col-md-6">
@@ -118,7 +108,6 @@ const DriverProfile = () => {
                 <div className="col-md-6">
                   <label for="firstIssued" className="form-label mt-3">First Issue</label>
                   <DatePicker name='firstIssued' className='form-control' onChange={(date, dateString) => {
-                    console.log(dateString)
                     handleChange(dateString)
                     setFieldTouched('firstIssued', true)
                     setFieldValue('firstIssued', dateString)
@@ -128,7 +117,6 @@ const DriverProfile = () => {
                 <div className="col-md-6">
                   <label for="expiryDate" className="form-label mt-3">Expiry Date</label>
                   <DatePicker className='form-control' onChange={(date, dateString) => {
-                    console.log(dateString)
                     handleChange(dateString)
                     setFieldTouched('expiryDate', true)
                     setFieldValue('expiryDate', dateString)
@@ -144,6 +132,21 @@ const DriverProfile = () => {
 
               {errors.countryIssued && touched.countryIssued ? (<small className="text-danger">{errors.countryIssued}</small>) : null}
 
+              <div className="col-md-12">
+                <label className="form-label mt-3">Description</label>
+                <Field
+                  name="description"
+                  className="form-control"
+                  component="textarea"
+                  placeholder="Briefly describe yourself..."
+                  rows="2"
+                />
+
+                {errors.description && touched.description ? (
+                  <small className="text-danger">{errors.description}</small>
+                ) : null}
+              </div>
+
               <button className="btn btn-primary my-4" type="submit">
                 Submit
               </button>
@@ -156,7 +159,3 @@ const DriverProfile = () => {
 }
 
 export default DriverProfile;
-<form className="row">
-  <label for="date" className="col-1 col-form-label">Date</label>
-
-</form>

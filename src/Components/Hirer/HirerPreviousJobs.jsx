@@ -1,6 +1,7 @@
 import moment from "moment";
 
-const PreviousJobs = () => {
+const HirerPreviousJobs = () => {
+
   const dataSource = [
     {
       hirer: "Isaac Malebana",
@@ -42,5 +43,4 @@ const PreviousJobs = () => {
   )
 }
 
-export default PreviousJobs;
-
+export default HirerPreviousJobs;

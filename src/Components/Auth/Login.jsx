@@ -1,6 +1,8 @@
 import { Formik, Form, Field } from 'formik';
 import { Link, useNavigate } from "react-router-dom"
 import * as Yup from 'yup';
+import { useSelector, useDispatch } from 'react-redux'
+import { signIn } from "../../store/users/actions/user.actions"
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Field required'),
@@ -12,24 +14,22 @@ const SignupSchema = Yup.object().shape({
 
 const Login = (props) => {
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { error, isLoading } = useSelector((state) => state.user)
 
   return (
     <div className="grid-cols">
       <div className="bg-base-300">
         <Formik
           initialValues={{
-            email: '',
-            password: '',
+            email: "",
+            password: "",
           }}
           validationSchema={SignupSchema}
           onSubmit={values => {
-            console.log("props ->", props)
-            const username = values.email
-            const password = values.password
-            console.log("values", { username, password })
-            localStorage.setItem("user", JSON.stringify({ username, password }))
-            navigate("/driver");
+            dispatch(signIn({ payload: values, navigate }))
           }}
         >
           {({ errors, touched }) => (
@@ -50,9 +50,9 @@ const Login = (props) => {
               </div>
               {errors.password && touched.password ? (<small className="text-danger">{errors.password}</small>) : null}
 
-
+              {error ? (<small className="text-danger">{error}</small>) : null}
               <button className="btn btn-primary my-4" type="submit">
-                Submit
+                {isLoading ? "Submitting..." : "Submit"}
               </button>
               <span className="span-text">Don't have an account? <Link className="link link-primary" to='/signup'>Sign up</Link></span>
             </Form>

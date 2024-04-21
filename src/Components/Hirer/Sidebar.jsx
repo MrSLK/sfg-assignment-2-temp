@@ -8,13 +8,17 @@ import {
   CDBSidebarMenuItem,
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
-
 
 const Sidebar = () => {
-  
-  const { firstName, lastName, userId } = useSelector((state) => state.user);
 
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    if (localStorage.getItem("user") !== null) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      setUser({ ...user, firstName: "Temp", lastName: "User" });
+    }
+
+  }, [localStorage.getItem("user")])
   return (
     <div
       style={{ display: 'flex', height: `calc(100vh - 56px)`, overflow: 'scroll initial' }}
@@ -22,24 +26,30 @@ const Sidebar = () => {
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a
-            href="/driver"
+            href="/hirer"
             className="text-decoration-none"
             style={{ color: 'inherit' }}
           >
-            {userId ? `Hi ${firstName} ${lastName}` : "Not logged in"}
+            {user ? `Hi ${user?.firstName} ${user?.lastName}` : "Not logged in"}
           </a>
         </CDBSidebarHeader>
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink to="/driver" >
+            <NavLink to="/hirer" >
               <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink to="/driver/previous-jobs" >
-              <CDBSidebarMenuItem icon="table">Previous Jobs</CDBSidebarMenuItem>
+            <NavLink to="/hirer/add-job" >
+              <CDBSidebarMenuItem icon="table">Advertise A Job</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink to="/driver/profile" >
-              <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
+            <NavLink to="/hirer/advertised-jobs" >
+              <CDBSidebarMenuItem icon="user">Advertised Jobs</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink to="/hirer/drivers-for-hire" >
+              <CDBSidebarMenuItem icon="user">Drivers for Hire</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink to="/hirer/previous-jobs" >
+              <CDBSidebarMenuItem icon="user">Previous Jobs</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>

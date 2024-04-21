@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
+import { setUserId } from "../../store/users/reducer/user.reducer"
 
 const CustomNavbar = () => {
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const { userId } = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" data-bs-theme="light">
       <Container>
@@ -12,9 +16,9 @@ const CustomNavbar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse style={{ justifyContent: "end" }} id="responsive-navbar-nav">
           <Nav className="ml-auto">
-            {user ? (
+            {userId ? (
               <Nav.Link as={NavLink} to="/" onClick={() => {
-                setUser(null);
+                dispatch(setUserId(""));
               }} className="nav-link">Log Out</Nav.Link>
             ) : (
                 <Nav className="ml-auto">

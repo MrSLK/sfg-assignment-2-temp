@@ -1,5 +1,9 @@
 import * as Yup from 'yup';
 
+export const trimText = (str, size = 30) => {
+  return str.length > size ? str.substr(0, size - 1) + "..." : str;
+};
+
 export const validateIDNumber = () => {
   return Yup.string()
     .min(13, "ID number must be 13 digits long")

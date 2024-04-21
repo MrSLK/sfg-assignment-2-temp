@@ -1,0 +1,257 @@
+.modal-prompt-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  // These properties are for when a spinner is present
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.modal-prompt {
+  z-index: 500 !important;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0px 0.5px 0px 0px rgba(239, 239, 240, 0.8) inset;
+  max-width: 90vw;
+  overflow: auto;
+
+  border-radius: 7px;
+  transition: transform 0.2s ease-out;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #bdbbbb;
+    border-radius: 20px;
+    border-right: 1px solid white;
+  }
+
+  .modal-prompt-header {
+    margin: -1px 0px 0px 0px;
+    text-align: center;
+    padding: 21px 24px;
+    color: #fff;
+
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .modal-prompt-content {
+    max-height: 62vh;
+    overflow-x: hidden !important;
+    overflow-y: auto;
+    padding: 2rem;
+    background-color: #fff;
+    transform: none;
+  }
+
+  .modal-prompt-footer {
+    z-index: 1001 !important;
+    padding: 1.5rem 1rem;
+    background-color: #fff;
+    box-shadow: 0px 0.5px 0px 0px rgba(239, 239, 240, 0.8) inset;
+
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .modal-prompt-footer-row {
+    justify-content: space-evenly;
+  }
+}
+
+.modal-sheet {
+  z-index: 1000 !important;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-radius: 7px 7px 0px 0px;
+  box-shadow: 0px 0.5px 0px 0px rgba(239, 239, 240, 0.8) inset;
+  transition: transform 0.2s ease-out;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #bdbbbb;
+    border-radius: 20px;
+    border-right: 1px solid white;
+  }
+
+  .sheet-header {
+    z-index: 1001 !important;
+    position: sticky;
+    top: 0;
+
+    text-align: center;
+    padding: 21px 24px;
+    color: #fff;
+
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .sheet-content {
+    flex-grow: 1;
+    // overflow-x: hidden !important;
+    overflow-y: auto;
+    padding: 2rem 1rem;
+    background-color: #fff;
+    transform: none;
+  }
+
+  .sheet-footer {
+    z-index: 1001 !important;
+    width: 100vw;
+    padding: 1.5rem 1rem;
+    background-color: #fff;
+    box-shadow: 0px 0.5px 0px 0px rgba(239, 239, 240, 0.8) inset;
+
+    position: sticky;
+    bottom: 0;
+  }
+
+  .sheet-footer-row {
+    justify-content: space-evenly;
+  }
+
+  .modal-sheet.is-dragging {
+    user-select: none;
+  }
+}
+
+.btn-contained {
+  padding: 8px 15px;
+  margin: 0 0.5rem;
+  border-radius: 3px;
+  font-size: 13px;
+  border: none;
+  background: #2bbdf2;
+  color: #fff;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #fff;
+    border-color: rgba(143, 225, 255, 1);
+    background-color: rgba(143, 225, 255, 1);
+  }
+  
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.btn-outlined {
+  padding: 8px 15px;
+  margin: 0 0.5rem;
+  border-radius: 3px;
+  font-size: 13px;
+  color: #2bbdf2;
+  background: #fff;
+  border: 1px solid;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #fff;
+    border-color: rgba(143, 225, 255, 1);
+    background-color: rgba(143, 225, 255, 1);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.left-button-group {
+  text-align: left;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.5rem;
+}
+
+.right-button-group {
+  text-align: right;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.5rem;
+}
+
+.header-variant-primary {
+  background-color: #2bbdf2;
+}
+
+.header-variant-success {
+  background-color: #2ed477;
+}
+
+.header-variant-warning {
+  background-color: #ff9138;
+}
+
+.header-variant-error {
+  background-color: #f46363;
+}
+
+.footer-buttons {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.warning-button-group > button {
+  padding: 8px 15px;
+  margin: 0 0.5rem;
+  border-radius: 3px;
+  font-size: 13px;
+  color: #fff !important;
+  background: #ff9138;
+  border: #ff9238cc 1px solid !important;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: #ff9238cc !important;
+    background-color: #ff9238cc !important;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer-buttons {
+    display: "flex";
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .right-button-group {
+    display: flex;
+    flex-direction: row;
+  }
+}

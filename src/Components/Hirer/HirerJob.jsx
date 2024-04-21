@@ -1,22 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import moment from "moment";
 
-const DriverJob = () => {
-
-  const { jobId } = useParams();
-  const [jobName, setJobName] = useState("");
-  const [jobHirer, setJobHirer] = useState("");
-  const [jobDescription, setJobDescription] = useState("");
-  const [jobStartDate, setJobStartDate] = useState("");
-  const [jobEndDate, setEndDate] = useState("");
-  const [isFixedTerm, setIsFixedTerm] = useState(null);
-  const [pay, setPay] = useState(0);
+const HirerJob = () => {
 
   useEffect(() => {
     const job = {
       isFixedTerm: true,
-      jobName: "Bus Driver",
+      jobTitle: "Bus Driver",
       jobHirer: "TUT",
       jobDescription: "TUT Inc is looking for a driver for the next 6 months to drive students from the Arcadia campus to the Soshanguve South & North campuses, between 6:30am and 7pm",
       jobStartDate: new Date(),
@@ -25,7 +14,7 @@ const DriverJob = () => {
     }
 
     setIsFixedTerm(job.isFixedTerm);
-    setJobName(job.jobName);
+    setJobName(job.jobTitle);
     setJobHirer(job.jobHirer);
     setJobDescription(job.jobDescription);
     setJobStartDate(job.jobStartDate);
@@ -40,7 +29,7 @@ const DriverJob = () => {
       <div className="container">
         <div className="row">
           <strong>Job Name:</strong>
-          <p>{jobName}</p>
+          <p>{jobTitle}</p>
           <div className="mt-40" />
 
           <strong>Job Hirer:</strong>
@@ -83,4 +72,5 @@ const DriverJob = () => {
   )
 }
 
-export default DriverJob;
+
+export default HirerJob;
