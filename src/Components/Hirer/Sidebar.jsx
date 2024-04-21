@@ -8,17 +8,12 @@ import {
   CDBSidebarMenuItem,
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
 
 const Sidebar = () => {
 
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    if (localStorage.getItem("user") !== null) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      setUser({ ...user, firstName: "Temp", lastName: "User" });
-    }
+  const { firstName, lastName, userId } = useSelector((state) => state.user);
 
-  }, [localStorage.getItem("user")])
   return (
     <div
       style={{ display: 'flex', height: `calc(100vh - 56px)`, overflow: 'scroll initial' }}
@@ -30,7 +25,7 @@ const Sidebar = () => {
             className="text-decoration-none"
             style={{ color: 'inherit' }}
           >
-            {user ? `Hi ${user?.firstName} ${user?.lastName}` : "Not logged in"}
+            {userId ? `Hi ${firstName} ${lastName}` : "Not logged in"}
           </a>
         </CDBSidebarHeader>
 
