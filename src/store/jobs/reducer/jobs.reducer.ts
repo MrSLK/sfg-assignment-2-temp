@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export interface UserState {
   jobId: string;
   jobTitle: string;
-  emplyomentType: string;
+  employmentType: string;
   location: string;
   startDate: string;
   endDate: string;
@@ -11,10 +11,12 @@ export interface UserState {
   hirerId: string;
   isLoading: boolean;
   allJobs: [];
-  jobsStatus: string;
+  jobStatus: string;
   error: string;
   successMessage: string;
   pay: number;
+  hirer: string;
+  isDeleting: boolean;
 }
 
 const initialState: UserState = {
@@ -22,16 +24,18 @@ const initialState: UserState = {
   error: "",
   jobId: "",
   jobTitle: "",
-  emplyomentType: "",
+  employmentType: "",
   location: "",
   startDate: "",
   endDate: "",
   description: "",
   hirerId: "",
   allJobs: [],
-  jobsStatus: "",
+  jobStatus: "",
   successMessage: "",
-  pay: 0
+  hirer: "",
+  pay: 0,
+  isDeleting: false
 }
 
 export const jobStateSlice = createSlice({
@@ -50,8 +54,8 @@ export const jobStateSlice = createSlice({
     setJobTitle: (state, action) => {
       state.jobTitle = action.payload
     },
-    setEmplyomentType: (state, action) => {
-      state.emplyomentType = action.payload
+    setEmploymentType: (state, action) => {
+      state.employmentType = action.payload
     },
     setLocation: (state, action) => {
       state.location = action.payload
@@ -77,6 +81,15 @@ export const jobStateSlice = createSlice({
     setPay: (state, action) => {
       state.pay = action.payload
     },
+    setHirer: (state, action) => {
+      state.hirer = action.payload
+    },
+    setJobStatus: (state, action) => {
+      state.jobStatus = action.payload
+    },
+    setIsDeleting: (state, action) => {
+      state.isDeleting = action.payload
+    }, 
   },
 })
 
@@ -85,7 +98,7 @@ export const {
   setIsLoading,
   setJobId,
   setJobTitle,
-  setEmplyomentType,
+  setEmploymentType,
   setLocation,
   setStartDate,
   setEndDate,
@@ -94,7 +107,10 @@ export const {
   setAllJobs,
   setError,
   setSuccessMessage,
-  setPay
+  setPay,
+  setHirer,
+  setJobStatus,
+  setIsDeleting
 } = jobStateSlice.actions
 
 export default jobStateSlice

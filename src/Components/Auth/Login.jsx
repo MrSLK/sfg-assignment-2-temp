@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux'
 import { signIn } from "../../store/users/actions/user.actions"
+import { ErrorAlert } from "../Common/ErrorAlert"
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Field required'),
@@ -35,7 +36,7 @@ const Login = (props) => {
           {({ errors, touched }) => (
 
             <Form style={{ display: "grid", maxWidth: "500px", margin: "auto" }}>
-              <div className="text-styl">
+              <div className="text-style">
                 <h2 className="heading-h2">Login to your account</h2>
               </div>
               <div className="col-12">
@@ -49,8 +50,10 @@ const Login = (props) => {
                 <Field name="password" type="password" className="form-control" />
               </div>
               {errors.password && touched.password ? (<small className="text-danger">{errors.password}</small>) : null}
+              <div className="mt-3">
+              {error ? (<ErrorAlert>{error}</ErrorAlert>) : null}
+              </div>
 
-              {error ? (<small className="text-danger">{error}</small>) : null}
               <button className="btn btn-primary my-4" type="submit">
                 {isLoading ? "Submitting..." : "Submit"}
               </button>

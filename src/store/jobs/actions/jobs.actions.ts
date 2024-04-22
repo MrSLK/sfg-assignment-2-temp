@@ -3,7 +3,7 @@ import {
   setIsLoading,
   setJobId,
   setJobTitle,
-  setEmplyomentType,
+  setEmploymentType,
   setLocation,
   setStartDate,
   setEndDate,
@@ -12,7 +12,10 @@ import {
   setAllJobs,
   setError,
   setSuccessMessage,
-  setPay
+  setPay,
+  setHirer,
+  setJobStatus,
+  setIsDeleting
 } from "../reducer/jobs.reducer"
 import {
   addjob,
@@ -37,7 +40,7 @@ export const createJob = (payload: any) => async (dispatch: Dispatch) => {
   }).catch(err => {
 
     dispatch(setIsLoading(false));
-    dispatch(setError(err.message));
+    dispatch(setError(err.response.data.message));
 
     setTimeout(() => {
       dispatch(setSuccessMessage(""));
@@ -46,25 +49,57 @@ export const createJob = (payload: any) => async (dispatch: Dispatch) => {
   })
 }
 export const editJob = (payload: any) => async (dispatch: Dispatch) => { }
-export const deleteJob = (payload: any) => async (dispatch: Dispatch) => { }
-export const fetchOneJob = (payload: any) => async (dispatch: Dispatch) => { 
-  fetchonejob({jobId: payload.jobId}).then(response => {
-    console.log("response ->", response);
+export const deleteJob = (payload: any) => async (dispatch: Dispatch) => {
+  const {jobId, userId, navigate} = payload;
 
-    const {} = response.data;
-  }).catch(error => {
-    dispatch(setError(error.message));
+  dispatch(setIsDeleting(true));
+  
+  deletejob({ jobId, userId}).then(response => {
+    dispatch(setSuccessMessage(response.data.message));
+    setTimeout(() => {
+      dispatch(setSuccessMessage(""));
+      dispatch(setIsDeleting(false));
+      navigate("/hirer/advertised-jobs");
+    }, 3000)
+  }).catch(err => {
+    dispatch(setError(err.response.data.message));
+    dispatch(setIsDeleting(false));
+  })
+
+  setTimeout(() => dispatch(setError("")), 3000);
+}
+export const fetchOneJob = (payload: any) => async (dispatch: Dispatch) => { 
+  const { jobId } = payload;
+  dispatch(setIsLoading(true));
+  fetchonejob({ jobId }).then(response => {
+    const { job } = response.data;
+    
+
+    dispatch(setJobTitle(job.jobTitle));
+    dispatch(setEmploymentType(job.employmentType));
+    dispatch(setLocation(job.location));
+    dispatch(setStartDate(job.startDate));
+    dispatch(setEndDate(job.endDate));
+    dispatch(setDescription(job.description));
+    dispatch(setHirerId(job.hirerId));
+    dispatch(setPay(job.pay));
+    dispatch(setHirer(`${job.hirer.profile.firstName} ${job.hirer.profile.lastName}`))
+    dispatch(setJobId(job._id));
+    dispatch(setJobStatus(job.jobStatus))
+    dispatch(setIsLoading(false));
+  }).catch(err => {
+    dispatch(setError(err.response.data.message));
+    dispatch(setIsLoading(false));
   });
 }
 export const fetchAllJob = (payload: any) => async (dispatch: Dispatch) => {
   dispatch(setIsLoading(true));
   fetchalljob().then(response => {
-    console.log("response ->", response); 
     const { jobs } = response.data;
     dispatch(setAllJobs(jobs))
     dispatch(setIsLoading(false));
   }).catch(err => {
-    dispatch(setError(err.message));
+    dispatch(setError(err.response.data.message));
     dispatch(setIsLoading(false));
     
   })

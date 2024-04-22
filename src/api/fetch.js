@@ -10,7 +10,6 @@ const signup = values => {
 }
 
 const addjob = values => {
-  console.log("values ->", values)
   return axios.post(`${BASE_URL}add-job`, values)
 }
 
@@ -23,11 +22,31 @@ const deletejob = values => {
 }
 
 const fetchonejob = values => {
-  return axios.get(`${BASE_URL}fetch-one-job`, values)
+  return axios.post(`${BASE_URL}fetch-one-job`, values)
 }
 
 const fetchalljob = values => {
   return axios.get(`${BASE_URL}fetch-all-jobs`, values)
+}
+
+const fetchalldrivers = values => {
+  return axios.get(`${BASE_URL}fetch-all-drivers`, values);
+}
+
+const fetchallhirers = values => {
+  return axios.get(`${BASE_URL}fetch-all-hirers`, values);
+}
+
+const driverprofile = values => {
+  return axios.post(`${BASE_URL}create-driver-profile`, values)
+}
+
+const updateuserprofile = values => {
+  return axios.post(`${BASE_URL}update-profile`, values)
+}
+
+const fetchdriverprofile = values => {
+  return axios.post(`${BASE_URL}fetch-driver-profile`, values)
 }
 
 export {
@@ -36,5 +55,10 @@ export {
   addjob, editjob,
   deletejob,
   fetchonejob,
-  fetchalljob
+  fetchalljob,
+  fetchalldrivers,
+  fetchallhirers,
+  driverprofile,
+  updateuserprofile,
+  fetchdriverprofile
 }

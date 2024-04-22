@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 import moment from "moment";
 
 const DriversForHire = () => {
-      const navigate = useNavigate();
+
+  const { drivers } = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
 
   const dataSource = [
     {

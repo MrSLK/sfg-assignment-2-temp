@@ -8,9 +8,28 @@ import {
   setIsLoading,
   setError,
   setToken,
-  setRole
+  setRole,
+  setAllHirers,
+  setAllDrivers,
+  setSuccessMessage,
+  setLicenseType,
+  setLicenseCode,
+  setFirstIssued,
+  setExpiryDate,
+  setCountryIssued,
+  setDescription,
+  setIdNumber,
+  setUpdateDriverProfileIsLoading
 } from "../reducer/user.reducer"
-import { signup, signin } from "../../../api/fetch";
+import {
+  signin,
+  signup,
+  fetchalldrivers,
+  fetchallhirers,
+  driverprofile,
+  updateuserprofile,
+  fetchdriverprofile
+} from "../../../api/fetch";
 
 
 export const signUp = (payload: any) => async (dispatch: Dispatch) => {
@@ -26,11 +45,12 @@ export const signUp = (payload: any) => async (dispatch: Dispatch) => {
     dispatch(setCellNumber(profile.cellNumber))
     dispatch(setToken(token))
     dispatch(setRole(profile.role))
+    if (profile.IdNumber) dispatch(setIdNumber(profile.idNumber));
     dispatch(setIsLoading(false));
     payload.navigate(`/${profile.role}`)
   }).catch((err) => {
     dispatch(setIsLoading(false));
-    dispatch(setError(err.message));
+    dispatch(setError(err.response.data.message));
   })
 }
 
@@ -45,13 +65,158 @@ export const signIn = (payload: any) => async (dispatch: Dispatch) => {
     dispatch(setLastName(profile.lastName))
     dispatch(setEmail(profile.email))
     dispatch(setCellNumber(profile.cellNumber))
+    if (profile.IdNumber) dispatch(setIdNumber(profile.idNumber));
     dispatch(setToken(token))
     dispatch(setRole(profile.role))
     dispatch(setIsLoading(false));
     payload.navigate(`/${profile.role}`)
   }).catch((err) => {
-    dispatch(setIsLoading(false));
-    dispatch(setError(err.message));
     console.log(err);
+    dispatch(setIsLoading(false));
+    dispatch(setError(err.response.data.message || err.message));
+    setTimeout(() => dispatch(setError("")), 3000);
   })
+}
+
+export const fetchAllDrivers = (payload: any) => async (dispatch: Dispatch) => {
+
+  dispatch(setIsLoading(true));
+  fetchalldrivers().then(response => {
+    const { drivers } = response.data;
+    dispatch(setAllDrivers(drivers));
+    dispatch(setIsLoading(false));
+  }).catch(err => {
+    const message = err.response.data.message;
+    console.log(err)
+    dispatch(setError(message));
+    dispatch(setIsLoading(false));
+  })
+
+  setTimeout(() => {
+    dispatch(setError(""));
+  }, 3000)
+}
+
+export const fetchAllHirers = (payload: any) => async (dispatch: Dispatch) => {
+
+  dispatch(setIsLoading(true));
+  fetchallhirers().then(response => {
+    const { hirers } = response.data;
+    dispatch(setAllHirers(hirers));
+    dispatch(setIsLoading(false));
+  }).catch(err => {
+    const message = err.response.data.message;
+    console.log(err)
+    dispatch(setError(message));
+    dispatch(setIsLoading(false));
+  })
+
+  setTimeout(() => {
+    dispatch(setError(""));
+  }, 3000)
+}
+
+export const driverProfile = (payload: any) => async (dispatch: Dispatch) => {
+
+  const {
+    firstName,
+    lastName,
+    email,
+    cellNumber,
+    licenseType,
+    licenseCode,
+    firstIssued,
+    expiryDate,
+    countryIssued,
+    description,
+    idNumber,
+    role,
+    userId,
+    navigate
+  } = payload;
+
+  const userProfile = {
+    firstName,
+    lastName,
+    email,
+    cellNumber,
+    idNumber,
+    userId,
+    role,
+  }
+
+  const driverProfile = {
+    licenseType,
+    licenseCode,
+    firstIssued,
+    expiryDate,
+    countryIssued,
+    description,
+    driverId: userId
+  }
+
+  dispatch(setUpdateDriverProfileIsLoading(true));
+  updateuserprofile(userProfile).then(response => {
+    const { profile, userId: _id } = response.data;
+    dispatch(setUserId(_id))
+    dispatch(setFirstName(profile.firstName))
+    dispatch(setLastName(profile.lastName))
+    dispatch(setEmail(profile.email))
+    dispatch(setCellNumber(profile.cellNumber))
+    dispatch(setRole(profile.role))
+    driverprofile(driverProfile).then(res => {
+      dispatch(setUpdateDriverProfileIsLoading(false));
+      const { message } = res.data;
+      if (message) {
+        dispatch(setSuccessMessage(message));
+      }
+      setTimeout(() => {
+        dispatch(setSuccessMessage(""));
+        navigate("/driver")
+      }, 3000)
+
+    }).catch(err => {
+      dispatch(setUpdateDriverProfileIsLoading(false));
+      console.log(err);
+      dispatch(setError(err.response.data.message));
+      setTimeout(() => dispatch(setError("")), 3000);
+    });
+  }).catch(err => {
+    console.log(err);
+    dispatch(setUpdateDriverProfileIsLoading(false));
+    dispatch(setError(err.response.data.message));
+    setTimeout(() => dispatch(setError("")), 3000);
+  });
+}
+
+export const fetchDriverProfile = (payload: any) => async (dispatch: Dispatch) => {
+
+
+  dispatch(setUpdateDriverProfileIsLoading(false));
+  dispatch(setIsLoading(true));
+  fetchdriverprofile(payload).then(res => {
+    const {
+      countryIssued,
+      description,
+      driver,
+      expiryDate,
+      firstIssued,
+      licenseCode,
+      licenseType,
+    } = res.data.profile;
+    if (res.data) {
+      dispatch(setIdNumber(driver.profile.idNumber))
+      dispatch(setRole(driver.profile.role))
+      dispatch(setLicenseType(licenseType))
+      dispatch(setLicenseCode(licenseCode))
+      dispatch(setFirstIssued(firstIssued))
+      dispatch(setExpiryDate(expiryDate))
+      dispatch(setCountryIssued(countryIssued))
+      dispatch(setDescription(description))
+    }
+    dispatch(setIsLoading(false));
+  }).catch(err => {
+    if (err.response) dispatch(setError(err.response.data.message));
+    dispatch(setIsLoading(false));
+  });
 }

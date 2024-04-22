@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { DatePicker } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import { useSelector, useDispatch } from 'react-redux';
-import { createJob } from "../../store/jobs/actions/jobs.actions";
+import { fetchOneJob } from "../../store/jobs/actions/jobs.actions";
 import { SuccessAlert } from "../Common/SuccessAlert";
 import { ErrorAlert } from "../Common/ErrorAlert";
+import ModalDialog from "../Common/ModalDialog";
+
+const jobStatusArray = [
+  { key: "active", value: "Active" },
+  { key: "ended", value: "Cancelled" },
+  { key: "yet-to-be-active", value: "Yet To Be Active" },
+]
 
 const AddJobSchema = Yup.object().shape({
   jobTitle: Yup.string().required("Job title is required"),
@@ -18,33 +25,97 @@ const AddJobSchema = Yup.object().shape({
     .when("employmentType", {
       is: "fixed-contract",
       then: Yup.date().required("End date is required").min(Yup.ref("startDate"), "End Date must be greater than the start date"),
-      otherwise: Yup.date().nullable(),
     }),
   description: Yup.string().required("Job Description is required"),
   pay: Yup.number().required("Job salary is required"),
 });
 
-const AdvertiseJob = () => {
-  const navigate = useNavigate();
+const ViewJob = () => {
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { jobId } = useParams();
   const { userId } = useSelector((state) => state.user);
-  const { isLoading, error, successMessage } = useSelector((state) => state.jobs);
+  const {
+    isLoading,
+    error,
+    jobTitle,
+    employmentType,
+    location,
+    startDate,
+    endDate,
+    description,
+    hirerId,
+    jobStatus,
+    successMessage,
+    hirer,
+    pay,
+    isDeleting
+  } = useSelector(state => state.jobs);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchOneJob({ jobId }))
+  }, [])
+
+  const confirmDeleteJob = () => {
+
+    return (
+      <ModalDialog
+        title="Remove Job"
+        content={
+          <div>
+            <p>Are you sure you want to remove this job?</p>
+            {successMessage ? <div className="mt-3"><SuccessAlert>{successMessage}</SuccessAlert> </div> : null}
+            {error ? <div className="mt-3"><ErrorAlert>{error}</ErrorAlert> </div> : null}
+          </div>
+        }
+        buttons={[
+          {
+            label: "Close",
+            variant: "outlined",
+            position: "right",
+            handler: () => setModalOpen(false)
+          },
+          {
+            label: isDeleting ? "Deleting job..." : "Delete Job",
+            variant: "contained",
+            position: "right",
+            handler: () => dispatch(deleteJob({ jobId, userId, navigate }))
+          }
+        ]}
+        closeHandler={() => setModalOpen(false)}
+      />
+    )
+  }
 
   return (
     <div className="container">
       <Formik
         initialValues={{
-          jobTitle: "",
-          employmentType: "",
-          location: "",
-          startDate: "",
-          endDate: "",
-          description: "",
-          pay: ""
+          jobTitle,
+          employmentType,
+          location,
+          startDate,
+          endDate,
+          description,
+          jobStatus,
+          successMessage,
+          pay
         }}
         validationSchema={AddJobSchema}
         onSubmit={(values) => {
-          dispatch(createJob({ values: { ...values, hirerId: userId }, navigate }))
+          values = {
+            ...values,
+            employmentType,
+            location,
+            startDate,
+            endDate,
+            description,
+            hirerId,
+            pay
+          }
+          console.log("update job values =>", values)
         }}
       >
         {({
@@ -56,10 +127,10 @@ const AdvertiseJob = () => {
           values,
         }) => (
           <Form style={{ display: "grid", maxWidth: "500px" }}>
+            {modalOpen && confirmDeleteJob()}
             <div className="text-style">
               <h2 className="heading-h2">Advertise a Job</h2>
             </div>
-            {/* {error && <div className='error'>{error}</div>} */}
             <div className="row">
               <div className="col-md-12">
                 <label className="form-label mt-3">Job Title</label>
@@ -111,12 +182,13 @@ const AdvertiseJob = () => {
                 <label className="form-label mt-3">Start Date</label>
                 <DatePicker
                   className="form-control"
+                  // defaultPickerValue={moment(values.startDate).format('YYYY-MM-DD')}
                   onChange={(date, dateString) => {
                     handleChange(dateString);
                     setFieldTouched("startDate", true);
                     setFieldValue("startDate", new Date(dateString));
                   }}
-                  needConfirm
+
                 />
                 {errors.startDate && touched.startDate ? (
                   <small className="text-danger">{errors.startDate}</small>
@@ -132,7 +204,7 @@ const AdvertiseJob = () => {
                     setFieldTouched("endDate", true);
                     setFieldValue("endDate", new Date(dateString));
                   }}
-                  needConfirm
+
                 />
                 {errors.endDate && touched.endDate ? (
                   <small className="text-danger">{errors.endDate}</small>
@@ -143,9 +215,21 @@ const AdvertiseJob = () => {
                 <label className="form-label mt-3">Salary</label>
                 <Field name="pay" type="number" className="form-control" />
                 {errors.pay && touched.pay ? (
-                  <small pay="text-danger">{errors.pay}</small>
+                  <small className="text-danger">{errors.pay}</small>
                 ) : null}
               </div>
+
+              {/* {jobStatusArray ? <div className="col-md-12">
+                <label className="form-label mt-3">Job Status</label>
+                <Field name="jobsStatus" type="select" className="form-control">
+                  {jobStatusArray.map((status, index) => {
+                     <option value={status.key}>{status.value}</option>
+                  })}
+                </Field>
+                {errors.jobsStatus && touched.jobsStatus ? (
+                  <small className="text-danger">{errors.jobsStatus}</small>
+                ) : null}
+              </div> : null} */}
 
               <div className="col-md-12">
                 <label className="form-label mt-3">Description</label>
@@ -169,9 +253,18 @@ const AdvertiseJob = () => {
             {successMessage ?
               <SuccessAlert>{successMessage}</SuccessAlert> : null}
 
-            <button className="btn btn-primary my-4" type="submit">
-              {isLoading ? "Creating Job..." : "Submit"}
-            </button>
+            <div className="row">
+              <div className="col-md-6" />
+              <div className="col-md-6 d-flex justify-content-end">
+                <div className="col-md-6">
+                  <button className="btn btn-primary" type="submit">Update Job</button>
+                </div>
+                <div className="col-md-6">
+                  <button className="btn btn-danger" onClick={() => setModalOpen(true)}>Terminate Job</button>
+                </div>
+
+              </div>
+            </div>
           </Form>
         )}
       </Formik>
@@ -179,4 +272,4 @@ const AdvertiseJob = () => {
   );
 };
 
-export default AdvertiseJob;
+export default ViewJob;
