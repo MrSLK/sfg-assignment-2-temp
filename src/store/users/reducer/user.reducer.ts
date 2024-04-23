@@ -54,6 +54,7 @@ export const userStateSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setResetUserState: (state) => state = initialState,
     setUserId: (state, action) => {
       state.userId = action.payload
     },
@@ -143,7 +144,8 @@ export const {
   setCountryIssued,
   setDescription,
   setIdNumber,
-  setUpdateDriverProfileIsLoading
+  setUpdateDriverProfileIsLoading,
+  setResetUserState
 } = userStateSlice.actions
 
 export default userStateSlice

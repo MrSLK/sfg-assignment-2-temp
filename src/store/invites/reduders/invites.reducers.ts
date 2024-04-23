@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface JobsState {
+export interface InvitesState {
   jobId: string;
   jobTitle: string;
   employmentType: string;
@@ -15,11 +15,12 @@ export interface JobsState {
   error: string;
   successMessage: string;
   pay: number;
-  hirer: string;
+  hirer: {};
+  driver: {};
   isDeleting: boolean;
 }
 
-const initialState: JobsState = {
+const initialState: InvitesState = {
   isLoading: false,
   error: "",
   jobId: "",
@@ -33,16 +34,17 @@ const initialState: JobsState = {
   allJobs: [],
   jobStatus: "",
   successMessage: "",
-  hirer: "",
+  hirer: {},
+  driver: {},
   pay: 0,
-  isDeleting: false
+  isDeleting: false,
 }
 
-export const jobStateSlice = createSlice({
-  name: 'job',
+export const invitesStateSlice = createSlice({
+  name: 'invites',
   initialState,
   reducers: {
-    setResetJobState: (state) => state = initialState,
+    setResetInvitesState: (state) => state = initialState,
     setIsLoading: (state, action) => {
       state.isLoading = action.payload
     },
@@ -90,13 +92,15 @@ export const jobStateSlice = createSlice({
     },
     setIsDeleting: (state, action) => {
       state.isDeleting = action.payload
-    }, 
+    },
+    setDriver: (state, action) => {
+      state.driver = action.payload
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
 export const {
-  setResetJobState,
   setIsLoading,
   setJobId,
   setJobTitle,
@@ -111,8 +115,10 @@ export const {
   setSuccessMessage,
   setPay,
   setHirer,
+  setDriver,
   setJobStatus,
-  setIsDeleting
-} = jobStateSlice.actions
+  setIsDeleting,
+  setResetInvitesState
+} = invitesStateSlice.actions
 
-export default jobStateSlice
+export default invitesStateSlice

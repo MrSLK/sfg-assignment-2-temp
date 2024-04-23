@@ -3,10 +3,13 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserId } from "../../store/users/reducer/user.reducer"
+import { setResetInvitesState } from '../../store/invites/reduders/invites.reducers'; 
+import { setResetJobState } from '../../store/jobs/reducer/jobs.reducer';
+import { setResetUserState } from '../../store/users/reducer/user.reducer';
 
 const CustomNavbar = () => {
 
-  const { userId } = useSelector((state) => state.user)
+  const { userId } = useSelector((state) => state.user);
   const dispatch = useDispatch()
 
   return (
@@ -19,6 +22,9 @@ const CustomNavbar = () => {
             {userId ? (
               <Nav.Link as={NavLink} to="/" onClick={() => {
                 dispatch(setUserId(""));
+                dispatch(setResetInvitesState());
+                dispatch(setResetJobState());
+                dispatch(setResetUserState());
               }} className="nav-link">Log Out</Nav.Link>
             ) : (
                 <Nav className="ml-auto">

@@ -49,10 +49,27 @@ const fetchdriverprofile = values => {
   return axios.post(`${BASE_URL}fetch-driver-profile`, values)
 }
 
+const invitedriver = values => {
+  return axios.post(`${BASE_URL}invite-driver`, values)
+}
+
+const updateinvite = values => {
+  return axios.post(`${BASE_URL}edit-invite`, values)
+}
+
+const fetchinvite = values => {
+  return axios.post(`${BASE_URL}fetch-invite`, values)
+}
+
+const retratcinvite = values => {
+  return axios.post(`${BASE_URL}remove-invite`, values)
+}
+
 export {
   signin,
   signup,
-  addjob, editjob,
+  addjob,
+  editjob,
   deletejob,
   fetchonejob,
   fetchalljob,
@@ -60,5 +77,9 @@ export {
   fetchallhirers,
   driverprofile,
   updateuserprofile,
-  fetchdriverprofile
+  fetchdriverprofile,
+  invitedriver,
+  updateinvite,
+  fetchinvite,
+  retratcinvite,
 }
