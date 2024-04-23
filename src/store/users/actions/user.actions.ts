@@ -19,7 +19,12 @@ import {
   setCountryIssued,
   setDescription,
   setIdNumber,
-  setUpdateDriverProfileIsLoading
+  setUpdateDriverProfileIsLoading,
+  setDriverFirstName,
+  setDriverLastName,
+  setDriverEmail,
+  setDriverCellNumber,
+  setDriverIdNumber
 } from "../reducer/user.reducer"
 import {
   signin,
@@ -78,7 +83,7 @@ export const signIn = (payload: any) => async (dispatch: Dispatch) => {
   })
 }
 
-export const fetchAllDrivers = (payload: any) => async (dispatch: Dispatch) => {
+export const fetchAllDrivers = () => async (dispatch: Dispatch) => {
 
   dispatch(setIsLoading(true));
   fetchalldrivers().then(response => {
@@ -86,8 +91,8 @@ export const fetchAllDrivers = (payload: any) => async (dispatch: Dispatch) => {
     dispatch(setAllDrivers(drivers));
     dispatch(setIsLoading(false));
   }).catch(err => {
-    const message = err.response.data.message;
     console.log(err)
+    const message = err.message;
     dispatch(setError(message));
     dispatch(setIsLoading(false));
   })
@@ -195,6 +200,7 @@ export const fetchDriverProfile = (payload: any) => async (dispatch: Dispatch) =
   dispatch(setUpdateDriverProfileIsLoading(false));
   dispatch(setIsLoading(true));
   fetchdriverprofile(payload).then(res => {
+    console.log("res.data =>", res.data);
     const {
       countryIssued,
       description,
@@ -205,8 +211,11 @@ export const fetchDriverProfile = (payload: any) => async (dispatch: Dispatch) =
       licenseType,
     } = res.data.profile;
     if (res.data) {
-      dispatch(setIdNumber(driver.profile.idNumber))
-      dispatch(setRole(driver.profile.role))
+      dispatch(setDriverFirstName(driver.profile.firstName))
+      dispatch(setDriverLastName(driver.profile.lastName))
+      dispatch(setDriverEmail(driver.profile.email))
+      dispatch(setDriverCellNumber(driver.profile.cellNumber))
+      dispatch(setDriverIdNumber(driver.profile.idNumber))
       dispatch(setLicenseType(licenseType))
       dispatch(setLicenseCode(licenseCode))
       dispatch(setFirstIssued(firstIssued))

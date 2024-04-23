@@ -24,7 +24,8 @@ const AddJobSchema = Yup.object().shape({
   pay: Yup.number().required("Job salary is required"),
 });
 
-const AdvertiseJob = () => {
+const AdvertiseJob = ({ inviteDriverOnSubmit, fromViewDriver }) => {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userId } = useSelector((state) => state.user);
@@ -44,7 +45,11 @@ const AdvertiseJob = () => {
         }}
         validationSchema={AddJobSchema}
         onSubmit={(values) => {
-          dispatch(createJob({ values: { ...values, hirerId: userId }, navigate }))
+          if (fromViewDriver) {
+            inviteDriverOnSubmit(values);
+          } else {
+            dispatch(createJob({ values: { ...values, hirerId: userId }, navigate }))
+          }
         }}
       >
         {({

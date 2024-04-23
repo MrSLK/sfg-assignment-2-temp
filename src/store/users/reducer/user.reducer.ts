@@ -23,6 +23,11 @@ export interface UserState {
   description: string;
   idNumber: string;
   updateDriverProfileIsLoading: boolean;
+  driverFirstName: string;
+  driverLastName: string;
+  driverEmail: string;
+  driverCellNumber: string;
+  driverIdNumber: string;
 }
 
 const initialState: UserState = {
@@ -48,6 +53,12 @@ const initialState: UserState = {
   countryIssued: "",
   description: "",
   idNumber: "",
+
+  driverFirstName: "",
+driverLastName: "",
+driverEmail: "",
+driverCellNumber: "",
+driverIdNumber: "",
 }
 
 export const userStateSlice = createSlice({
@@ -70,6 +81,24 @@ export const userStateSlice = createSlice({
     setCellNumber: (state, actions) => {
       state.cellNumber = actions.payload;
     },
+    setIdNumber: (state, actions) => {
+      state.idNumber = actions.payload;
+    },
+    setDriverFirstName: (state, actions) => {
+      state.driverFirstName = actions.payload;
+    },
+    setDriverLastName: (state, actions) => {
+      state.driverLastName = actions.payload;
+    },
+    setDriverEmail: (state, actions) => {
+      state.driverEmail = actions.payload;
+    },
+    setDriverCellNumber: (state, actions) => {
+      state.driverCellNumber = actions.payload;
+    },
+    setDriverIdNumber: (state, actions) => {
+      state.driverIdNumber = actions.payload;
+    }, 
     setPassword: (state, actions) => {
       state.password = actions.payload;
     },
@@ -112,9 +141,6 @@ export const userStateSlice = createSlice({
     setDescription: (state, actions) => {
       state.description = actions.payload;
     },
-    setIdNumber: (state, actions) => {
-      state.idNumber = actions.payload;
-    }, 
     setUpdateDriverProfileIsLoading: (state, actions) => {
       state.updateDriverProfileIsLoading = actions.payload;
     },
@@ -145,7 +171,12 @@ export const {
   setDescription,
   setIdNumber,
   setUpdateDriverProfileIsLoading,
-  setResetUserState
+  setResetUserState,
+  setDriverFirstName,
+setDriverLastName,
+setDriverEmail,
+setDriverCellNumber,
+setDriverIdNumber
 } = userStateSlice.actions
 
 export default userStateSlice

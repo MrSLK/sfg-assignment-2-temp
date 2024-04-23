@@ -24,7 +24,7 @@ const Dashboard = () => {
               <h6 className="card-subtitle mb-2 text-muted"><i>{`${job.hirer.profile.firstName} ${job.hirer.profile.lastName}`}</i></h6>
               <p className="card-text">{trimText(job.description)}</p>
 
-              <div className="col-md-4">
+              <div>
                 <button className="btn btn-primary" onClick={() => navigate(`/driver/jobs/${job._id}`)}>View Job</button>
               </div>
             </div>

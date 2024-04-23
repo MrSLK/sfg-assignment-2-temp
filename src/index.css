@@ -8,3 +8,27 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+
+.service__title{
+  border-left: #91bc4d 6px solid;
+  margin-right: 10px;
+}
+
+.service__card{
+  box-shadow: 1px 2px 16px 0px #0000001a;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+
+.masthead {
+    padding-top: 10rem;
+    padding-bottom: calc(10rem - 4.5rem);
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../src/assets/Background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}

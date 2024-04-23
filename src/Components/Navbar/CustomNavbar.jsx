@@ -9,9 +9,9 @@ import { setResetUserState } from '../../store/users/reducer/user.reducer';
 
 const CustomNavbar = () => {
 
-  const { userId } = useSelector((state) => state.user);
+  const { userId, role } = useSelector((state) => state.user);
   const dispatch = useDispatch()
-
+  const dashRoute = `/${role}`
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" data-bs-theme="light">
       <Container>
@@ -20,12 +20,15 @@ const CustomNavbar = () => {
         <Navbar.Collapse style={{ justifyContent: "end" }} id="responsive-navbar-nav">
           <Nav className="ml-auto">
             {userId ? (
-              <Nav.Link as={NavLink} to="/" onClick={() => {
-                dispatch(setUserId(""));
-                dispatch(setResetInvitesState());
-                dispatch(setResetJobState());
-                dispatch(setResetUserState());
-              }} className="nav-link">Log Out</Nav.Link>
+              <Nav className="ml-auto">
+                <Nav.Link to={dashRoute} className="nav-link" as={NavLink}>Dashboard</Nav.Link>
+                <Nav.Link as={NavLink} to="/" onClick={() => {
+                  dispatch(setUserId(""));
+                  dispatch(setResetInvitesState());
+                  dispatch(setResetJobState());
+                  dispatch(setResetUserState());
+                }} className="nav-link">Log Out</Nav.Link>
+              </Nav>
             ) : (
                 <Nav className="ml-auto">
                 <Nav.Link as={NavLink} to="/login" className="nav-link">Login</Nav.Link>

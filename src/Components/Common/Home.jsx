@@ -10,7 +10,7 @@ const Home = () => {
               <h1 className="text-white font-weight-bold">Your Favorite Place for all your traveling needs</h1>
             </div>
             <div className="col-lg-8 align-self-baseline">
-              <p className="text-white-75 mb-5">Are you in need of a reliable driver for your upcoming journey? Or perhaps you're a skilled driver looking to offer your services to those in need? Look no further! DriveShare is the perfect platform for connecting drivers with those seeking their services.</p>
+              <p className="text-white-75 mb-5" style={{color: "white"}}>Are you in need of a reliable driver for your upcoming journey? Or perhaps you're a skilled driver looking to offer your services to those in need? Look no further! DriveShare is the perfect platform for connecting drivers with those seeking their services.</p>
             </div>
           </div>
         </div>
@@ -19,17 +19,20 @@ const Home = () => {
       {/* Services */}
       <section className="page-section" id="services">
         <div className="container px-4 px-lg-5">
-          <h2 className="text-center mt-0">At Your Service</h2>
-          <div className="row gx-4 gx-lg-5">
+          <h2 className="text-center mt-5 ">
+            <span className="service__title"> </span>
+              At Your Service
+             </h2>
+          <div className="row gx-lg-5">
             <div className="col-lg-6 col-md-6 text-center">
-              <div className="mt-5">
+              <div className="mt-5 service__card">
                 <div className="mb-2"><i className="bi-laptop fs-1 text-primary"></i></div>
                 <h3 className="h4 mb-2">Driver</h3>
                 <p className="text-muted mb-0">Are you a safe and experienced driver looking to earn some extra income? Join our community of drivers today and start offering your services to individuals and businesses in need of transportation assistance. Whether it's chauffeuring clients to important meetings, providing airport transfers, or simply offering a designated driver service for special events, DriveShare is the place to showcase your skills and find opportunities.</p>
               </div>
             </div>
             <div className="col-lg-6 col-md-6 text-center">
-              <div className="mt-5">
+              <div className="mt-5 service__card">
                 <div className="mb-2"><i className="bi-heart fs-1 text-primary"></i></div>
                 <h3 className="h4 mb-2">Hirer</h3>
                 <p className="text-muted mb-0">Finding a reliable driver for your transportation needs has never been easier. Whether you need a driver for a one-time journey or a long-term arrangement, DriveShare allows you to browse through a diverse selection of drivers and choose the one that best fits your requirements. With transparent profiles, reviews, and ratings, you can rest assured that you're hiring a trustworthy and skilled driver for your journey.</p>
