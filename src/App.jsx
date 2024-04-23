@@ -10,7 +10,6 @@ import Driver from './Components/Driver/Index';
 import DriverProfile from './Components/Driver/DriverProfile';
 import Dashboard from './Components/Driver/Dashoard';
 import PreviousJobs from './Components/Driver/PreviousJobs';
-import Job from './Components/Common/Job';
 import JobInvites from './Components/Driver/JobInvites';
 
 // Hirer components
@@ -23,6 +22,9 @@ import DriversForHire from "./Components/Hirer/DriversForHire";
 import ViewDriver from "./Components/Hirer/ViewDriver";
 import ViewJob from "./Components/Hirer/ViewJob";
 
+// Shared
+import Job from './Components/Common/Job';
+import ViewInvite from "./Components/Common/ViewInvite";
 // Admin routes
 import AdminDashboard from "./Components/Admin/index"
 
@@ -47,6 +49,7 @@ function App() {
               <Route exact path="/driver/previous-jobs" Component={PreviousJobs} />
               <Route exact path="/driver/jobs/:jobId" Component={Job} />
               <Route exact path="/driver/job-invites" Component={JobInvites} />
+              <Route exact path="/driver/view-invite/:inviteId" Component={ViewInvite} />
             </Route>
 
             {/* Hirer routes */}

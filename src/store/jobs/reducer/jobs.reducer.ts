@@ -17,6 +17,7 @@ export interface JobsState {
   pay: number;
   hirer: string;
   isDeleting: boolean;
+  activeJobs: [];
 }
 
 const initialState: JobsState = {
@@ -35,7 +36,8 @@ const initialState: JobsState = {
   successMessage: "",
   hirer: "",
   pay: 0,
-  isDeleting: false
+  isDeleting: false,
+  activeJobs: []
 }
 
 export const jobStateSlice = createSlice({
@@ -45,6 +47,9 @@ export const jobStateSlice = createSlice({
     setResetJobState: (state) => state = initialState,
     setIsLoading: (state, action) => {
       state.isLoading = action.payload
+    },
+    setActiveJobs: (state, action) => {
+      state.activeJobs = action.payload
     },
     setError: (state, action) => {
       state.error = action.payload
@@ -112,7 +117,8 @@ export const {
   setPay,
   setHirer,
   setJobStatus,
-  setIsDeleting
+  setIsDeleting,
+  setActiveJobs
 } = jobStateSlice.actions
 
 export default jobStateSlice

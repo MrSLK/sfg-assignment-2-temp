@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import userReducer from './users/reducer/user.reducer';
 import jobReducer from './jobs/reducer/jobs.reducer';
+import invitesReducer from './invites/reduders/invites.reducers';
 
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
@@ -8,7 +9,8 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 const middlewares: any = [];
 const rootReducer = combineReducers({
   user: userReducer.reducer,
-  jobs: jobReducer.reducer
+  jobs: jobReducer.reducer,
+  invites: invitesReducer.reducer
 })
 
 const persistConfig = {

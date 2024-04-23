@@ -60,9 +60,21 @@ const updateinvite = values => {
 const fetchinvite = values => {
   return axios.post(`${BASE_URL}fetch-invite`, values)
 }
+const fetchoneinvite = values => {
+  return axios.post(`${BASE_URL}fetch-one-invite`, values)
+}
 
 const retratcinvite = values => {
   return axios.post(`${BASE_URL}remove-invite`, values)
+}
+
+const decideonjob = values => {
+  return axios.post(`${BASE_URL}decide-on-job`, values)
+}
+
+const fetchactivehirerjobs = values => {
+  console
+  return axios.post(`${BASE_URL}fetch-jobs-on-condition`, values)
 }
 
 export {
@@ -82,4 +94,7 @@ export {
   updateinvite,
   fetchinvite,
   retratcinvite,
+  fetchoneinvite,
+  decideonjob,
+  fetchactivehirerjobs,
 }

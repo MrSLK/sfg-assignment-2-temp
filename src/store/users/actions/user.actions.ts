@@ -184,7 +184,6 @@ export const driverProfile = (payload: any) => async (dispatch: Dispatch) => {
       dispatch(setUpdateDriverProfileIsLoading(false));
       console.log(err);
       dispatch(setError(err.response.data.message));
-      setTimeout(() => dispatch(setError("")), 3000);
     });
   }).catch(err => {
     console.log(err);
@@ -200,7 +199,6 @@ export const fetchDriverProfile = (payload: any) => async (dispatch: Dispatch) =
   dispatch(setUpdateDriverProfileIsLoading(false));
   dispatch(setIsLoading(true));
   fetchdriverprofile(payload).then(res => {
-    console.log("res.data =>", res.data);
     const {
       countryIssued,
       description,

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchDriverProfile } from "../../store/users/actions/user.actions"
 import ModalDialog from "../Common/ModalDialog";
-import AdvertiseJob from "./AdvertiseJob"
+import AdvertiseJob from "./AdvertiseJob";
+import { inviteDriver } from "../../store/invites/actions/invites.actions"
 
 const ViewDriver = () => {
 
@@ -21,20 +22,37 @@ const ViewDriver = () => {
     firstIssued,
     licenseCode,
     licenseType,
+    userId
   } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [modalOpen, setModalOpen] = useState(false);
 
+  const sendInv = values => {
+    const body = {
+      driverId: driverId,
+      hirerId: userId,
+      description: values.description,
+      jobTitle: values.jobTitle,
+      startDate: values.startDate,
+      endDate: values.endDate,
+      employmentType: values.employmentType,
+      location: values.location,
+      inviteStatus: "invited",
+      pay: values.pay
+    }
+    dispatch(inviteDriver({ values: body, navigate }))
+  }
+
   useEffect(() => {
     dispatch(fetchDriverProfile({ driverId }))
-    // description: "Meet John, a seasoned driver who obtained his first driver's license back in 2003. With over two decades of driving experience under his belt, John prides himself on his impeccable driving record. Throughout his years behind the wheel, he has never been involved in a single driving accident nor has he received any traffic tickets. John's commitment to safe driving practices and adherence to traffic regulations is exemplary. His consistent record of responsible driving reflects his dedication to ensuring road safety for himself and others. With his wealth of experience and spotless driving history, John is not just a driver but a role model for safe and responsible driving behavior."
   }, [driverId])
 
-  const inviteDriver = () => {
+  const inviteDriverModal = () => {
     return (
       <ModalDialog closeHandler={() => setModalOpen(false)} title="Invite Driver" content={<div>
-        <AdvertiseJob fromViewDriver={true}  inviteDriverOnSubmit={(values) => { console.log("values of inviting job", values)}} />
+        <AdvertiseJob fromViewDriver={true} inviteDriverOnSubmit={(values) => sendInv(values)} />
       </div>} />
     )
   }
@@ -43,7 +61,7 @@ const ViewDriver = () => {
     <div className="container">
       <div className="row">
         <h2>View Driver</h2>
-        {modalOpen && inviteDriver()}
+        {modalOpen && inviteDriverModal()}
         <strong>Driver Name:</strong>
         <p>{`${driverFirstName} ${driverLastName}`}</p>
         <div className="mt-40" />

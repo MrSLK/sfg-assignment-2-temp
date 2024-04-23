@@ -17,6 +17,7 @@ export interface InvitesState {
   pay: number;
   hirer: {};
   driver: {};
+  invite: {};
   isDeleting: boolean;
 }
 
@@ -38,6 +39,7 @@ const initialState: InvitesState = {
   driver: {},
   pay: 0,
   isDeleting: false,
+  invite: {},
 }
 
 export const invitesStateSlice = createSlice({
@@ -45,11 +47,14 @@ export const invitesStateSlice = createSlice({
   initialState,
   reducers: {
     setResetInvitesState: (state) => state = initialState,
-    setIsLoading: (state, action) => {
+    setIsLoadingInvite: (state, action) => {
       state.isLoading = action.payload
     },
-    setError: (state, action) => {
+    setInviteError: (state, action) => {
       state.error = action.payload
+    },
+    setInvite: (state, action) => {
+      state.invite = action.payload
     },
     setJobId: (state, action) => {
       state.jobId = action.payload
@@ -78,7 +83,7 @@ export const invitesStateSlice = createSlice({
     setAllJobs: (state, action) => {
       state.allJobs = action.payload
     },
-    setSuccessMessage: (state, action) => {
+    setInviteSuccessMessage: (state, action) => {
       state.successMessage = action.payload
     },
     setPay: (state, action) => {
@@ -101,7 +106,7 @@ export const invitesStateSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  setIsLoading,
+  setIsLoadingInvite,
   setJobId,
   setJobTitle,
   setEmploymentType,
@@ -111,14 +116,15 @@ export const {
   setDescription,
   setHirerId,
   setAllJobs,
-  setError,
-  setSuccessMessage,
+  setInviteError,
+  setInviteSuccessMessage,
   setPay,
   setHirer,
   setDriver,
   setJobStatus,
   setIsDeleting,
-  setResetInvitesState
+  setResetInvitesState,
+  setInvite
 } = invitesStateSlice.actions
 
 export default invitesStateSlice

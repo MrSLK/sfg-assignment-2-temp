@@ -1,22 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { useSelector, useDispatch } from "react-redux"
+import { useEffect } from "react";
+import { fetchActiveJobs } from "../../store/jobs/actions/jobs.actions"
 
 const HirerDashboard = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { activeJobs } = useSelector(state => state.jobs);
+  const { userId } = useSelector(state => state.user);
 
-  const dataSource = [
-    {
-      hirer: "Isaac Malebana",
-      jobTitle: "Chauffer",
-      dateHired: moment("2024-01").format("DD MMM YYYY"),
-    },
-    {
-      hirer: "Pontsho Chuene",
-      jobTitle: "Chauffer",
-      dateHired: moment("2022-12-01").format("DD MMM YYYY"),
-    }
-  ];
+  useEffect(() => {
+    dispatch(fetchActiveJobs({
+      jobStatus: "hired",
+      hirerId: userId
+    }))
+  }, [])
+
 
   return (
     <div >
@@ -30,13 +31,13 @@ const HirerDashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {dataSource.map((source, index) => (
+          {activeJobs.map((source, index) => (
             <tr key={index}>
               <td><a style={{ cursor: "pointer" }} onClick={() => {
-                navigate("/hirer/jobs/1")
-              }}>{source.hirer}</a></td>
+                navigate(`/hirer/jobs/${source._id}`)
+              }}>{`${source.driver.profile.firstName} ${source.driver.profile.lastName}`}</a></td>
               <td>{source.jobTitle}</td>
-              <td>{source.dateHired}</td>
+              <td>{moment(source.dateHired).format("YYYY MMM DD")}</td>
             </tr>
           ))}
         </tbody>

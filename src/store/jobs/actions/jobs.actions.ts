@@ -15,14 +15,16 @@ import {
   setPay,
   setHirer,
   setJobStatus,
-  setIsDeleting
+  setIsDeleting,
+  setActiveJobs
 } from "../reducer/jobs.reducer"
 import {
   addjob,
   editjob,
   deletejob,
   fetchonejob,
-  fetchalljob
+  fetchalljob,
+  fetchactivehirerjobs
 } from "../../../api/fetch";
 
 
@@ -102,5 +104,16 @@ export const fetchAllJob = (payload: any) => async (dispatch: Dispatch) => {
     dispatch(setError(err.response.data.message));
     dispatch(setIsLoading(false));
     
+  })
+}
+
+export const fetchActiveJobs = (payload: any) => async (dispatch: Dispatch) => { 
+  
+  ("payload ->", payload)
+  fetchactivehirerjobs(payload).then(res => {
+    const { hiredJobs } = res.data;
+    dispatch(setActiveJobs(hiredJobs))
+  }).catch(err => {
+    console.log(err)
   })
 }
